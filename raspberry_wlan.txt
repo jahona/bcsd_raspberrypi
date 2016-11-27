@@ -1,0 +1,40 @@
+			- 인터넷 연결 - 
+
+//띄어쓰기 주의
+//컨넥티파이(구글에서 구버전으로 다운받으면 무료사용가능)
+//내컴퓨터를 와이파이존으로 사용하게 해준다
+
+//라즈베리파이 핀 설명
+//https://www.element14.com/community/servlet/JiveServlet/previewBody/73950-102-10-339300/pi3_gpio.png
+
+1. sudo nano /etc/wpa_supplicant/wpa_supplicant.conf 
+에서 아래 추가
+network = {
+	ssid="bcsd"
+	psk="12345678"
+	key_mgmt=WPA-PSK
+}
+
+//wlan을 껏다 킨다
+2. sudo ifdown wlan0
+3. sudo ifup wlan0
+(iwlist wlan0 scan 을 하여 정상적으로 wlan이 작동하는지 확인)
+
+//update
+4. sudo apt-get update
+
+//로그인할때 작동됨
+5. nano .profile  ->  맨 아래에 export TERM=xterm-256color 추가
+
+//온도센서 라이브러리 다운로드	
+6. wget https://raw.githubusercontent.com/tibyte/PiTH/master/pub/dht11.py
+
+//라이브러리 추가했으니 재부팅
+7. sudo reboot now
+
+//모듈 추가
+8. python -> import py_compile -> py_compile.compile('dht11.py')
+
+//형이 작성한 파이썬 스크립트
+9. wget https://raw.githubusercontent.com/tibyte/PiTH/master/pub/example.py
+
