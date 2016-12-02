@@ -1,0 +1,8 @@
+시간 맞추기	
+
+cd /usr/share/zoneinfo/Asia
+cp Seoul /etc/localtime
+
+/*
+localtime으로 Seoul 시간 복사
+*/

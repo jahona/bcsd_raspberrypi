@@ -64,6 +64,22 @@ def handler():
 th = threading.Thread(target=handler)
 th.start()
 
+def getTimestamp():
+	c = datetime.datetime.now()
+	year = "%04d" % c.year
+	month = "%02d" % c.month
+	day = "%02d" % c.day
+	hour = "%02d" % c.hour
+	minute = "%02d" % c.minute
+	second = "%02d" % c.second
+	return year+month+day+hour+minute+second
+	
+	
+def sendData(time, temp, humi):
+	URL = "http://128.199.254.45:8000/register"
+	params = {'time': time, 'temp': temp, 'humi': humi}
+	requests.get(URL, params=params)
+	
 #read data using pin 17
 instance = dht11.DHT11(pin = 17)
 
@@ -75,8 +91,8 @@ try:
                         print("Temperature: %d C" % result.temperature)
                         num = result.temperature
                         print("Humidity: %d %%" % result.humidity)
-
-                time.sleep(0.5)
+						sendData(getTimestamp(), result.temperature, result.humidity)
+                time.sleep(10)
 
 except KeyboardInterrupt:
                 tFlag = 0
